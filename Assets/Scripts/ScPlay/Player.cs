@@ -20,11 +20,11 @@ public class Player : Entity {
 	private int[,] drink = new int[Config.inventoryRow, Config.inventoryCol];	//“drink”인벤토리 목록
 	private int[,] equip = new int[Config.inventoryRow, Config.inventoryCol];	//“equip”인벤토리 목록
 
-	private Gauge hpBar;
+	//private Gauge hpBar;
 
 	void Start () {
-		hpBar = GameObject.Find("Gauge_HP").GetComponent<Gauge>();
-		hpBar.InitValue(fullHp, currHp);
+		//hpBar = GameObject.Find("Gauge_HP").GetComponent<Gauge>();
+		//hpBar.InitValue(fullHp, currHp);
 	}
 
 	public override void initChild(int charCode_){
@@ -57,7 +57,7 @@ public class Player : Entity {
 	}
 	
 	protected override void hpBarUpdate(){
-		hpBar.SetValue(currHp);
+		//hpBar.SetValue(currHp);
 	}
 
 
