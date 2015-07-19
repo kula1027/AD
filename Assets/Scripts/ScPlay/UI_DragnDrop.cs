@@ -47,24 +47,23 @@ public class UI_DragnDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 	private Vector2 vel = Vector2.zero;
 	IEnumerator Relocater(string toWhere){
 		if (toWhere.Equals ("top")) {
+			Debug.Log ("top");
 			while (rt.anchoredPosition.y <= cvHeight * 0.8f) {
-				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
-				                                                new Vector2 (itemBeingDragged.position.x, 1000f),
-				                                                ref vel, 
-				                                                0.2f);
+				itemBeingDragged.position += new Vector3 (0, 0.01f, 0);
 				yield return null;
 			}
-			itemBeingDragged.position = new Vector2 (itemBeingDragged.position.x, itemBeingDragged.position.y - 60);
-		} else {
-			while (rt.anchoredPosition.y >= startY) {
-				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
-				                                                new Vector2 (itemBeingDragged.position.x, 0f),
-				                                                ref vel, 
-				                                                0.2f);
-				yield return null;
-			}
-			itemBeingDragged.position = new Vector2 (itemBeingDragged.position.x, itemBeingDragged.position.y + 10);
+			//itemBeingDragged.position = new Vector2 (itemBeingDragged.position.x, 95);
 		}
+//		} else {
+//			while (transform.position.y >= 90) {
+//				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
+//				                                                new Vector2 (itemBeingDragged.position.x, -200f),
+//				                                                ref vel, 
+//				                                                0.001f);
+//				yield return null;
+//			}
+//			itemBeingDragged.position = new Vector2(itemBeingDragged.position.x, -190);
+//		}
 
 		yield break;
 	}

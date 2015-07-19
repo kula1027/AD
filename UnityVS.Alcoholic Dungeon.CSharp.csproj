@@ -85,14 +85,13 @@
     <Compile Include="Assets\Scripts\ScPlay\Entity.cs" />
     <Compile Include="Assets\Scripts\ScPlay\EntityCollider.cs" />
     <Compile Include="Assets\Scripts\ScPlay\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Gauge.cs" />
     <Compile Include="Assets\Scripts\ScPlay\MOVE.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Player.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Stage.cs" />
     <Compile Include="Assets\Scripts\ScPlay\TileInfo.cs" />
-    <Compile Include="Assets\Scripts\ScPlay\UI_Buff.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Control.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_DragnDrop.cs" />
-    <Compile Include="Assets\Scripts\ScPlay\UI_Gauge.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hand painted bottle\readme.txt" />

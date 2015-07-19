@@ -2,85 +2,21 @@
 using System.Collections;
 
 public class UI_Control : MonoBehaviour {
-	private GameObject slot_drink;
-	private GameObject slot_item;
-	private GameObject slot_skill;
-	private GameObject slot_status;
-
-	private GameObject panel_menu;
+	GameObject slot_drink;
+	GameObject slot_item;
+	GameObject slot_skill;
+	GameObject slot_status;
 
 	void Start(){
 		SlotButtonInit ();
-		InGameMenuInit ();
 	}
 
 
-	#region In Game Menu Buttons
-	private void InGameMenuInit (){
-		panel_menu = GameObject.Find ("Panel_Menu");
-		panel_menu.SetActive (false);
-	}
-
-	public void onButtonMenuClicked(){
-		panel_menu.SetActive (true);
-	}
-
-	public void onButtonContinueClicked(){
-		panel_menu.SetActive (false);
-	}
-
-	public void onButtonOptionClicked(){
-		//todo
-	}
-
-	public void onButtonToMainClicked(){
-		//todo
-	}
-
-	public void onButtonSaveExitClicked(){
-		//saving method
-		Application.Quit ();
-	}
-
-	#endregion
-
-	#region Input Buttons
-	public void onButtonWClicked(){
-		Debug.Log ("W!");
-	}
-
-	public void onButtonEClicked(){
-		Debug.Log ("E!");
-	}
-
-	public void onButtonNClicked(){
-		Debug.Log ("N!");
-	}
-
-	public void onButtonSClicked(){
-		Debug.Log ("S!");
-	}
-
-	public void onButtonSEClicked(){
-		Debug.Log ("SE!");
-	}
-
-	public void onButtonSWClicked(){
-		Debug.Log ("SW!");
-	}
-
-	public void onButtonNWClicked(){
-		Debug.Log ("NW!");
-	}
-
-	public void onButtonNEClicked(){
-		Debug.Log ("NE!");
-	}
-
-	#endregion
 
 
-	#region Slot Buttons
+
+	/// <summary>
+	/// Slot Button Manager	/////////////// </summary>
 	private void SlotButtonInit(){
 		slot_drink = GameObject.Find ("Slot_Drink");
 		slot_item = GameObject.Find ("Slot_Item");
@@ -119,5 +55,5 @@ public class UI_Control : MonoBehaviour {
 		slot_skill.SetActive (false);
 		slot_status.SetActive (true);
 	}
-	#endregion
+	/////////////////////////////////////////////////////
 }
