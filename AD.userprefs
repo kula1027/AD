@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ScPlay\MOVE.cs">
+    <Files>
+      <File FileName="Assets\Scripts\ScPlay\Enemy.cs" Line="17" Column="48" />
+      <File FileName="Assets\Scripts\ScPlay\EnemyManager.cs" Line="13" Column="26" />
+      <File FileName="Assets\Scripts\ScPlay\Entity.cs" Line="71" Column="29" />
+      <File FileName="Assets\Scripts\ScPlay\Ai_Enemy.cs" Line="248" Column="19" />
+      <File FileName="Assets\Scripts\ScPlay\GameManager.cs" Line="22" Column="29" />
+      <File FileName="Assets\Scripts\ScPlay\MOVE.cs" Line="89" Column="39" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
