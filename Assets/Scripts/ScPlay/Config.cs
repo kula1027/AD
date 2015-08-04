@@ -9,13 +9,8 @@ public class Config {
 
 	//entity variable
 	public static readonly string[] name = new string[3]{"Debug","test2","test3"};						//케릭터 이름
-<<<<<<< HEAD
-	public static readonly int[] fullHp = new int[3]{1000,0,0};								//HP 최대치
-	public static readonly int[] str = new int[3]{10,0,0};									//힘
-=======
 	public static readonly int[] fullHp = new int[3]{10,0,0};								//HP 최대치
 	public static readonly int[] str = new int[3]{5,0,0};									//힘
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 	public static readonly int[] dex = new int[3]{10,0,0};									//민첩
 	public static readonly int[] accuracyRatePerDex = new int[3]{10,0,0};					//명중률 나누기 민첩
 	public static readonly int[] avoidRatePerDex = new int[3]{10,0,0};						//회피율 나누기 민첩

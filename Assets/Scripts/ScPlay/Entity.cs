@@ -22,11 +22,7 @@ public class Entity : MonoBehaviour {
 	public List<Buff> buffList = new List<Buff>();		//버프 목록
 
 	public int up, down, left, right, leftUp, rightUp, leftDown, rightDown;
-<<<<<<< HEAD
-
-=======
 	public List<GameObject> attackable = new List<GameObject>();
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 	public void init(int entityCode_, int childCode_){
 		entityCode=entityCode_;
 		name = Config.name[entityCode];
@@ -69,13 +65,10 @@ public class Entity : MonoBehaviour {
 		return this.dex;
 	}
 
-<<<<<<< HEAD
-=======
 	public int getStr(){
 		return this.str;
 	}
 
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 	public void incTrunCount(int amount){
 		if (this.turnCount == 0) {
 			this.turnCount+=amount;
@@ -118,32 +111,6 @@ public class Entity : MonoBehaviour {
 		transform.GetComponent<MOVE>().SetMove(direction);
 	}
 
-<<<<<<< HEAD
-	public void EnterDetection(int flag, int kindTag){
-		switch(flag){
-		case MoveFlag.UP:
-			up = kindTag;
-			break;
-		case MoveFlag.DOWN:
-			down = kindTag;
-			break;
-		case MoveFlag.LEFT:
-			left = kindTag;
-			break;
-		case MoveFlag.RIGHT:
-			right = kindTag;
-			break;
-		case MoveFlag.LEFTUP:
-			leftUp = kindTag;
-			break;
-		case MoveFlag.LEFTDOWN:
-			leftDown = kindTag;
-			break;
-		case MoveFlag.RIGHTUP:
-			rightUp = kindTag;
-			break;
-		case MoveFlag.RIGHTDOWN:
-=======
 	public void SetAttack(int direction){
 		transform.GetComponent<ATTACK>().SetAttack(direction);
 	}
@@ -172,7 +139,6 @@ public class Entity : MonoBehaviour {
 			rightUp = kindTag;
 			break;
 		case Direction.RIGHTDOWN:
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 			rightDown = kindTag;
 			break;
 		}
@@ -182,14 +148,6 @@ public class Entity : MonoBehaviour {
 		EnterDetection(flag, KindTag.empty);
 	}
 
-<<<<<<< HEAD
-	public void Damage(int dam){
-		currHp-=dam;
-		if(currHp<=0){
-			Application.Quit();
-		}
-		hpBarUpdate();
-=======
 	public bool Damage(int dam){//사망시에 true 리턴
 		currHp-=dam;
 		if(currHp<=0){
@@ -202,7 +160,6 @@ public class Entity : MonoBehaviour {
 		}
 		hpBarUpdate();
 		return false;
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 	}
 
 	protected virtual void hpBarUpdate(){}

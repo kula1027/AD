@@ -47,37 +47,6 @@ public class UI_Control : MonoBehaviour {
 
 	#region Input Buttons
 	public void onButtonWClicked(){
-<<<<<<< HEAD
-		gameManager.PlayerMove(MoveFlag.LEFT);
-	}
-
-	public void onButtonEClicked(){
-		gameManager.PlayerMove(MoveFlag.RIGHT);
-	}
-
-	public void onButtonNClicked(){
-		gameManager.PlayerMove(MoveFlag.UP);
-	}
-
-	public void onButtonSClicked(){
-		gameManager.PlayerMove(MoveFlag.DOWN);
-	}
-
-	public void onButtonSEClicked(){
-		gameManager.PlayerMove(MoveFlag.RIGHTDOWN);
-	}
-
-	public void onButtonSWClicked(){
-		gameManager.PlayerMove(MoveFlag.LEFTDOWN);
-	}
-
-	public void onButtonNWClicked(){
-		gameManager.PlayerMove(MoveFlag.LEFTUP);
-	}
-
-	public void onButtonNEClicked(){
-		gameManager.PlayerMove(MoveFlag.RIGHTUP);
-=======
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFT)) {
 			Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.LEFT);
@@ -155,7 +124,6 @@ public class UI_Control : MonoBehaviour {
 			Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.RIGHTUP);
 		}
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 	}
 
 	#endregion

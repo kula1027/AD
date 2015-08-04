@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿using UnityEngine;
-=======
 using UnityEngine;
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 using System.Collections;
 
 public class Enemy : Entity {
@@ -50,17 +46,6 @@ public class Enemy : Entity {
 		if(0.5f<playerPos.x){
 			if(0.5f<playerPos.y){
 				if(rightUp == KindTag.empty || rightUp == KindTag.item){
-<<<<<<< HEAD
-					SetMove(MoveFlag.RIGHTUP);
-				}
-			}else if(playerPos.y<-0.5f){
-				if(rightDown == KindTag.empty || rightDown == KindTag.item){
-					SetMove(MoveFlag.RIGHTDOWN);
-				}
-			}else{
-				if(right == KindTag.empty || right == KindTag.item){
-					SetMove(MoveFlag.RIGHT);
-=======
 					SetMove(Direction.RIGHTUP);
 				}
 			}else if(playerPos.y<-0.5f){
@@ -70,23 +55,11 @@ public class Enemy : Entity {
 			}else{
 				if(right == KindTag.empty || right == KindTag.item){
 					SetMove(Direction.RIGHT);
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 				}
 			}
 		}else if(playerPos.x<-0.5f){
 			if(0.5f<playerPos.y){
 				if(leftUp == KindTag.empty || leftUp == KindTag.item){
-<<<<<<< HEAD
-					SetMove(MoveFlag.LEFTUP);
-				}
-			}else if(playerPos.y<-0.5f){
-				if(leftDown == KindTag.empty || leftDown == KindTag.item){
-					SetMove(MoveFlag.LEFTDOWN);
-				}
-			}else{
-				if(left == KindTag.empty || left == KindTag.item){
-					SetMove(MoveFlag.LEFT);
-=======
 					SetMove(Direction.LEFTUP);
 				}
 			}else if(playerPos.y<-0.5f){
@@ -96,23 +69,11 @@ public class Enemy : Entity {
 			}else{
 				if(left == KindTag.empty || left == KindTag.item){
 					SetMove(Direction.LEFT);
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 				}
 			}
 		}else{
 			if(0.5f<playerPos.y){
 				if(up == KindTag.empty || up == KindTag.item){
-<<<<<<< HEAD
-					SetMove(MoveFlag.UP);
-				}
-			}else if(playerPos.y<-0.5f){
-				if(down == KindTag.empty || down == KindTag.item){
-					SetMove(MoveFlag.DOWN);
-				}
-			}else{
-				{
-					SetMove(MoveFlag.STAY);
-=======
 					SetMove(Direction.UP);
 				}
 			}else if(playerPos.y<-0.5f){
@@ -122,7 +83,6 @@ public class Enemy : Entity {
 			}else{
 				{
 					SetMove(Direction.STAY);
->>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 				}
 			}
 		}
