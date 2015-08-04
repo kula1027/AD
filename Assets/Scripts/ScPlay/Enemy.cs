@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Enemy : Entity {
 
-	public EnemyManager master;
+	public EnemyManager enemyManager;
 	private Ai_Enemy ai;
 
 	private int enemyCode;									//적 코드
@@ -21,68 +21,68 @@ public class Enemy : Entity {
 		dropExp = Config.dropExp[enemyCode];
 	}
 
-	public void SetMaster(GameObject mas){
-		master = mas.GetComponent<EnemyManager>();
+	public void SetEnemyManager(GameObject mas){
+		enemyManager = mas.GetComponent<EnemyManager>();
 		ai = transform.GetComponent<Ai_Enemy>();
-		ai.setTileInfo (master.board.get_tileInfo(0));
+		ai.setTileInfo (enemyManager.boardManager.get_tileInfo(0));
 		ai.InitAI (transform.position, gameObject);
 	}
 
 	public void DestroyGameObject(){
-		master.RemoveSlave(gameObject);
+		enemyManager.RemoveSlave(gameObject);
 		Destroy(gameObject);
 	}
 
 	public void Act(){
-		//Move();
-		ai.setTileInfo (master.board.get_tileInfo(0));
-		Move2(ai.get_Flag());
+		Move();
+		//ai.setTileInfo (master.board.get_tileInfo(0));
+		//ai.InitAI (transform.position, gameObject);
+		//Move2(ai.get_Flag());
 	}
 
 	public void Move(){
-		Vector3 playerPos = master.main.player.transform.position;
+		Vector3 playerPos = enemyManager.gameManager.player.transform.position;
 		playerPos = playerPos - transform.position;
-
 		if(0.5f<playerPos.x){
 			if(0.5f<playerPos.y){
 				if(rightUp == KindTag.empty || rightUp == KindTag.item){
-					SetMove(MoveFlag.RIGHTUP);
+					SetMove(Direction.RIGHTUP);
 				}
 			}else if(playerPos.y<-0.5f){
 				if(rightDown == KindTag.empty || rightDown == KindTag.item){
-					SetMove(MoveFlag.RIGHTDOWN);
+					SetMove(Direction.RIGHTDOWN);
 				}
 			}else{
 				if(right == KindTag.empty || right == KindTag.item){
-					SetMove(MoveFlag.RIGHT);
+					SetMove(Direction.RIGHT);
 				}
 			}
 		}else if(playerPos.x<-0.5f){
 			if(0.5f<playerPos.y){
 				if(leftUp == KindTag.empty || leftUp == KindTag.item){
-					SetMove(MoveFlag.LEFTUP);
+					SetMove(Direction.LEFTUP);
 				}
 			}else if(playerPos.y<-0.5f){
 				if(leftDown == KindTag.empty || leftDown == KindTag.item){
-					SetMove(MoveFlag.LEFTDOWN);
+					SetMove(Direction.LEFTDOWN);
 				}
 			}else{
 				if(left == KindTag.empty || left == KindTag.item){
-					SetMove(MoveFlag.LEFT);
+					SetMove(Direction.LEFT);
 				}
 			}
 		}else{
 			if(0.5f<playerPos.y){
 				if(up == KindTag.empty || up == KindTag.item){
-					SetMove(MoveFlag.UP);
+					SetMove(Direction.UP);
 				}
 			}else if(playerPos.y<-0.5f){
 				if(down == KindTag.empty || down == KindTag.item){
-					SetMove(MoveFlag.DOWN);
+					SetMove(Direction.DOWN);
 				}
 			}else{
 				{
-					SetMove(MoveFlag.STAY);
+					SetMove(Direction.STAY);
 				}
 			}
 		}

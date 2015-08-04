@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class UI_SelectMenu : MonoBehaviour {
 
-	public UI_Charics Charics;
+	public Image CharicsImg;
+	public Sprite[] sprites;
+	private int charicNum = 0;
 
-	public void OnSelectButtonClick(){
+	public void OnStartButtonClick(){
 		Application.LoadLevel ("ScPlay");
 	}
-	
-	public void OnRightButtonClick(){
-		Charics.Right();
+
+	public void OnBackButtonClick(){
+		Application.LoadLevel ("ScMenu");
 	}
 	
-	public void OnLeftButtonClick(){
-		Charics.Left();
+	public void OnCharictorClick(int num){
+		CharicsImg.sprite = sprites[num];
 	}
 
 	void Update(){

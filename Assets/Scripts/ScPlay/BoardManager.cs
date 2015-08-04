@@ -35,6 +35,14 @@ public class BoardManager : MonoBehaviour
 			}
 		}
 	}
+
+	public void SetEnemyTiles(int enemyNums){
+		enemyTiles = new GameObject[enemyNums];
+		for(int i = 0 ; i < enemyNums ; i++){
+			enemyTiles[i] = new GameObject();
+			enemyTiles[i].transform.position = _Stage[(GameObject.Find("GameManager").GetComponent<GameManager>().currStage)].GetRespawnPoint();
+		}
+	}
 	
 	void BoardSetup (){
 		_Stage = new Stage[2];

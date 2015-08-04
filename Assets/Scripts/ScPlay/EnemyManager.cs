@@ -1,27 +1,48 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyManager : MonoBehaviour {
 
 	public Transform[] enemy;
-	public GameManager main;
-	public BoardManager board;
+	public GameManager gameManager;
+	public BoardManager boardManager;
 
 	private ArrayList enemys = new ArrayList();
 
 	public void CreateEnemy(){
-		int count = board.enemyTiles.Length;
+		boardManager.SetEnemyTiles(3);
+		int count = boardManager.enemyTiles.Length;
 		for(int i = 0 ; i < count ; i ++){
 			int num = Random.Range(0, enemy.Length-1);
-			Transform e = (Transform)Instantiate(enemy[num], ((GameObject)(board.enemyTiles[i])).transform.position, Quaternion.identity);
-			e.GetComponent<Enemy>().SetMaster(gameObject);
+			Transform e = (Transform)Instantiate(enemy[num], ((GameObject)(boardManager.enemyTiles[i])).transform.position, Quaternion.identity);
+			e.GetComponent<Enemy>().SetEnemyManager(gameObject);
+			e.GetComponent<Entity>().init (IdInfo.DEBUG,IdInfo.DEBUG);
 			enemys.Add(e.gameObject);
 		}
 	}
 
+	public void decTurnCount(){
+		for(int i = 0 ; i < enemys.Count ; i ++){
+			((GameObject)(enemys[i])).GetComponent<Entity>().decTurnCount();
+		}
+	}
+
+	public bool IsAllStop(){
+		for(int i = 0 ; i < enemys.Count ; i ++){
+			if(((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag!=Direction.STAY){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public void EnemyAct(){
 		for(int i = 0 ; i < enemys.Count ; i ++){
-			((GameObject)(enemys[i])).GetComponent<Enemy>().Act();
+			if(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount()==0 && ((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag == Direction.STAY){
+				((GameObject)(enemys[i])).GetComponent<Enemy>().Act();
+			}else{
+				//Debug.Log(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount());
+			}
 		}
 	}
 

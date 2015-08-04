@@ -6,7 +6,7 @@ public class Entity : MonoBehaviour {
 
 	protected int entityCode;							//케릭터 분류코드
 	protected int fullHp;								//HP 최대치
-	protected int currHp;							//현재 HP
+	protected int currHp;								//현재 HP
 	protected int str;									//힘
 	protected int dex;									//민첩
 	protected int accuracyRate;							//명중률
@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour {
 	public List<Buff> buffList = new List<Buff>();		//버프 목록
 
 	public int up, down, left, right, leftUp, rightUp, leftDown, rightDown;
-
+	public List<GameObject> attackable = new List<GameObject>();
 	public void init(int entityCode_, int childCode_){
 		entityCode=entityCode_;
 		name = Config.name[entityCode];
@@ -57,13 +57,38 @@ public class Entity : MonoBehaviour {
 		
 	}
 
+	public int getTurnCount(){
+		return this.turnCount;
+	}
+
+	public int getDex(){
+		return this.dex;
+	}
+
+	public int getStr(){
+		return this.str;
+	}
+
+	public void incTrunCount(int amount){
+		if (this.turnCount == 0) {
+			this.turnCount+=amount;
+		}
+	}
+
+	public void decTurnCount(){
+		if (0 < this.turnCount) {
+			this.turnCount--;
+		}
+	}
+
 	public void RegenHp(int amount){
 		if(amount<0){
-			throw new System.InvalidOperationException("amount must be positive value");
-		}
-		this.currHp +=amount;
-		if(currHp>fullHp){
-			currHp = fullHp;
+			Debug.Log("amount must be positive value");
+		}else{
+			this.currHp +=amount;
+			if(currHp>fullHp){
+				currHp = fullHp;
+			}
 		}
 	}
 
@@ -86,30 +111,34 @@ public class Entity : MonoBehaviour {
 		transform.GetComponent<MOVE>().SetMove(direction);
 	}
 
+	public void SetAttack(int direction){
+		transform.GetComponent<ATTACK>().SetAttack(direction);
+	}
+
 	public void EnterDetection(int flag, int kindTag){
 		switch(flag){
-		case MoveFlag.UP:
-			up = kindTag;
+		case Direction.UP:
+			up = kindTag; 
 			break;
-		case MoveFlag.DOWN:
+		case Direction.DOWN:
 			down = kindTag;
 			break;
-		case MoveFlag.LEFT:
+		case Direction.LEFT:
 			left = kindTag;
 			break;
-		case MoveFlag.RIGHT:
+		case Direction.RIGHT:
 			right = kindTag;
 			break;
-		case MoveFlag.LEFTUP:
+		case Direction.LEFTUP:
 			leftUp = kindTag;
 			break;
-		case MoveFlag.LEFTDOWN:
+		case Direction.LEFTDOWN:
 			leftDown = kindTag;
 			break;
-		case MoveFlag.RIGHTUP:
+		case Direction.RIGHTUP:
 			rightUp = kindTag;
 			break;
-		case MoveFlag.RIGHTDOWN:
+		case Direction.RIGHTDOWN:
 			rightDown = kindTag;
 			break;
 		}
@@ -119,12 +148,18 @@ public class Entity : MonoBehaviour {
 		EnterDetection(flag, KindTag.empty);
 	}
 
-	public void Damage(int dam){
+	public bool Damage(int dam){//사망시에 true 리턴
 		currHp-=dam;
 		if(currHp<=0){
-			Application.Quit();
+			if(gameObject.GetComponent<Enemy>()){
+				gameObject.GetComponent<Enemy>().DestroyGameObject();
+				//가지고있던 템을 떨궈야함.
+			}
+			Destroy(gameObject);
+			return true;
 		}
 		hpBarUpdate();
+		return false;
 	}
 
 	protected virtual void hpBarUpdate(){}

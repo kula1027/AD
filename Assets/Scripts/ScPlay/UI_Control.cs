@@ -6,6 +6,7 @@ public class UI_Control : MonoBehaviour {
 	private GameObject slot_item;
 	private GameObject slot_skill;
 	private GameObject slot_status;
+	public GameManager gameManager;
 
 	private GameObject panel_menu;
 
@@ -46,35 +47,83 @@ public class UI_Control : MonoBehaviour {
 
 	#region Input Buttons
 	public void onButtonWClicked(){
-		Debug.Log ("W!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFT)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.LEFT);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.LEFT);
+		}
 	}
 
 	public void onButtonEClicked(){
-		Debug.Log ("E!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.RIGHT)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.RIGHT);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.RIGHT);
+		}
 	}
 
 	public void onButtonNClicked(){
-		Debug.Log ("N!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.UP)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.UP);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.UP);
+		}
 	}
 
 	public void onButtonSClicked(){
-		Debug.Log ("S!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.DOWN)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.DOWN);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.DOWN);
+		}
 	}
 
 	public void onButtonSEClicked(){
-		Debug.Log ("SE!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.RIGHTDOWN)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.RIGHTDOWN);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.RIGHTDOWN);
+		}
 	}
 
 	public void onButtonSWClicked(){
-		Debug.Log ("SW!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFTDOWN)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.LEFTDOWN);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.LEFTDOWN);
+		}
 	}
 
 	public void onButtonNWClicked(){
-		Debug.Log ("NW!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFTUP)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.LEFTUP);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.LEFTUP);
+		}
 	}
 
 	public void onButtonNEClicked(){
-		Debug.Log ("NE!");
+		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.RIGHTUP)) {
+			Debug.Log ("attack!");
+			gameManager.PlayerAttack (Direction.RIGHTUP);
+		} else {
+			Debug.Log ("move!");
+			gameManager.PlayerMove (Direction.RIGHTUP);
+		}
 	}
 
 	#endregion

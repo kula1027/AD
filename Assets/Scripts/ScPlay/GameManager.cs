@@ -1,117 +1,240 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
 	
-	public BoardManager boardScript;
-	public EnemyManager enemy;
-	public int turn = Turn.Player;
+	public BoardManager boardManager;
+	public EnemyManager enemyManager;
+	public int turn = Turn.Select;
+	public int currStage = 0;
 	public Transform prefabPlayer;
 	public GameObject player;
 	public CameraControl cam;
 	private int level = 3;
-	private float turnTimer = 0;
 
+	
 	// Use this for initialization
 	void Awake ()
 	{
-		boardScript = GetComponent<BoardManager> ();
+		boardManager = GetComponent<BoardManager> ();
 		InitGame ();
-		boardScript.loadLevel (0);
+		boardManager.loadLevel (0);
 	}
 
 	void InitGame ()
 	{
-		boardScript.SetupScene (level);
+		boardManager.SetupScene (level);
 		player = (((Transform)Instantiate (prefabPlayer, transform.position, Quaternion.identity))).gameObject;
-		player.transform.position = boardScript._Stage [0].PlayerSpawnPoint;
+		player.transform.position = boardManager._Stage [0].PlayerSpawnPoint;
+		player.GetComponent<Entity> ().init (IdInfo.DEBUG, IdInfo.DEBUG);
 		cam.SetPlayer (player);
 		//GameObject.Find ("Player").transform.position = new Vector3(10,10,0);
-		enemy.CreateEnemy ();
+		enemyManager.CreateEnemy ();
+	}
+
+	public void PlayerAttack(int attackFlag){
+		if (turn == Turn.Select && player.GetComponent<Entity>().getTurnCount()==0) {
+			Player localPlayer = player.GetComponent<Player> ();
+			switch(attackFlag){
+			case Direction.UP:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.DOWN:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.LEFT:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+					enemyManager.EnemyAct ();
+				}
+				break;
+			case Direction.RIGHT:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.LEFTDOWN:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+					enemyManager.EnemyAct ();
+				}
+				break;
+			case Direction.LEFTUP:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.RIGHTUP:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.RIGHTDOWN:
+				if (true){//조건문 TODO
+					localPlayer.SetAttack (attackFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			}
+		}
+	}
+
+	public void PlayerMove(int moveFlag){
+		if (turn == Turn.Select && player.GetComponent<Entity>().getTurnCount()==0) {
+			Player localPlayer = player.GetComponent<Player> ();
+			switch(moveFlag){
+			case Direction.UP:
+				//Debug.Log (localPlayer.up);
+				if (localPlayer.up == KindTag.empty || localPlayer.up == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.DOWN:
+				//Debug.Log (localPlayer.down);
+				if (localPlayer.down == KindTag.empty || localPlayer.down == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.LEFT:
+				//Debug.Log (localPlayer.left);
+				if (localPlayer.left == KindTag.empty || localPlayer.left == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+					enemyManager.EnemyAct ();
+				}
+				break;
+			case Direction.RIGHT:
+				//Debug.Log (localPlayer.right);
+				if (localPlayer.right == KindTag.empty || localPlayer.right == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.LEFTDOWN:
+				//Debug.Log (localPlayer.leftDown);
+				if (localPlayer.leftDown == KindTag.empty || localPlayer.leftDown == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+					enemyManager.EnemyAct ();
+				}
+				break;
+			case Direction.LEFTUP:
+				//Debug.Log (localPlayer.leftUp);
+				if (localPlayer.leftUp == KindTag.empty || localPlayer.leftUp == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.RIGHTUP:
+				//Debug.Log (localPlayer.rightUp);
+				if (localPlayer.rightUp == KindTag.empty || localPlayer.rightUp == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			case Direction.RIGHTDOWN:
+				//Debug.Log (localPlayer.rightDown);
+				if (localPlayer.rightDown == KindTag.empty || localPlayer.rightDown == KindTag.item){
+					localPlayer.SetMove (moveFlag);
+					turn = Turn.Acting;
+				}
+				break;
+			}
+		}
 	}
 
 	void Update ()
 	{
-		if (turn == Turn.Player) {
+		if (player.GetComponent<Entity> ().getTurnCount() != 0 && enemyManager.IsAllStop()) {
+			player.GetComponent<Entity> ().decTurnCount();
+			enemyManager.decTurnCount();
+		}
+		if (turn == Turn.Select) {
 			Player localPlayer = player.GetComponent<Player> ();
 			if (localPlayer.leftUp == KindTag.empty || localPlayer.leftUp == KindTag.item)
 			if (Input.GetKeyUp ("q")) {
-				localPlayer.SetMove (MoveFlag.LEFTUP);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.LEFTUP);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.up == KindTag.empty || localPlayer.up == KindTag.item)
 			if (Input.GetKeyUp ("w")) {
-				localPlayer.SetMove (MoveFlag.UP);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.UP);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.rightUp == KindTag.empty || localPlayer.rightUp == KindTag.item)
 			if (Input.GetKeyUp ("e")) {
-				localPlayer.SetMove (MoveFlag.RIGHTUP);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.RIGHTUP);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.right == KindTag.empty || localPlayer.right == KindTag.item)
 			if (Input.GetKeyUp ("d")) {
-				localPlayer.SetMove (MoveFlag.RIGHT);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.RIGHT);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.rightDown == KindTag.empty || localPlayer.rightDown == KindTag.item)
 			if (Input.GetKeyUp ("c")) {
-				localPlayer.SetMove (MoveFlag.RIGHTDOWN);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.RIGHTDOWN);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.down == KindTag.empty || localPlayer.down == KindTag.item)
 			if (Input.GetKeyUp ("x")) {
-				localPlayer.SetMove (MoveFlag.DOWN);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.DOWN);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.leftDown == KindTag.empty || localPlayer.leftDown == KindTag.item)
 			if (Input.GetKeyUp ("z")) {
-				localPlayer.SetMove (MoveFlag.LEFTDOWN);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.LEFTDOWN);
+				turn = Turn.Acting;
 			}
 			
 			if (localPlayer.left == KindTag.empty || localPlayer.left == KindTag.item)
 			if (Input.GetKeyUp ("a")) {
-				localPlayer.SetMove (MoveFlag.LEFT);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.LEFT);
+				turn = Turn.Acting;
 			}
 			
 			if (Input.GetKeyUp ("s")) {
-				localPlayer.SetMove (MoveFlag.STAY);
-				turn = Turn.PlayerBeing;
+				localPlayer.SetMove (Direction.STAY);
+				turn = Turn.Acting;
 			}
-			
-		} else if (turn == Turn.PlayerBeing) {
-			turnTimer += Time.deltaTime;
-			if (1 < turnTimer) {
-				turn ++;
-				turnTimer = 0;
+		} else if (turn == Turn.Acting) {
+			enemyManager.EnemyAct ();
+			if (player.GetComponent<MOVE>().moveFlag==Direction.STAY && enemyManager.IsAllStop()) {
+				turn = Turn.Select;
 			}
-		} else if (turn == Turn.Ai) {
-			turnTimer += Time.deltaTime;
-			enemy.EnemyAct ();
-			turn++;
-		} else {
-			turnTimer += Time.deltaTime;
-			if (1 < turnTimer) {
-				turn = Turn.Player;
-				turnTimer = 0;
-			}
+		}
+		Quit();
+	}
+
+	private void Quit(){
+		if(Input.GetKey(KeyCode.Escape)){
+			Application.Quit();
 		}
 	}
 }
 
 public class Turn
 {
-	public const int Player = 0;
-	public const int PlayerBeing = 1;
-	public const int Ai = 2;
-	public const int AiBeing = 3;
+	public const int Select = 0;
+	public const int Acting = 1;
 }

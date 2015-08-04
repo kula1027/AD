@@ -1,71 +1,95 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class UI_DragnDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class UI_DragnDrop : MonoBehaviour, IDragHandler, IEndDragHandler {
 	private Transform itemBeingDragged;
-	float startY;
-	float cvHeight;
-	RectTransform rt;
+	private float startY;
+	private float paramY;
+	private bool corouLock;
+	private bool isAtTop;
 
 	void Start(){
 		itemBeingDragged = GameObject.Find ("Panel_Slot").transform;
-		cvHeight = GameObject.Find ("Canvas").GetComponent<RectTransform> ().sizeDelta.y;
-		rt = GameObject.Find ("Panel_Slot").GetComponent<RectTransform>();
-		startY = rt.anchoredPosition.y;
-	}
+		startY = itemBeingDragged.position.y;
 
-	#region IBeginDragHandler implementation
-	public void OnBeginDrag (PointerEventData eventData)
-	{
-
+		paramY = GameObject.Find ("ParamY").transform.position.y;
+		corouLock = true;
+		isAtTop = false;
 	}
-	#endregion
 
 	#region IDragHandler implementation
-
 	public void OnDrag (PointerEventData eventData)
 	{
-		if(rt.anchoredPosition.y <= cvHeight * 0.8f && rt.anchoredPosition.y >= startY - 0.1f)
-			itemBeingDragged.position = new Vector2(itemBeingDragged.position.x, Input.mousePosition.y);
+		itemBeingDragged.position = new Vector2 (itemBeingDragged.position.x, Input.mousePosition.y);
+
 	}	
 	#endregion
 
 	#region IEndDragHandler implementation
-
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		if (rt.anchoredPosition.y > cvHeight * 0.5f) {
-			StartCoroutine("Relocater", "top");
+		if (isAtTop) {
+			if (itemBeingDragged.position.y > paramY * 0.7f) {
+				if (corouLock)
+					StartCoroutine ("Relocater", "top");
 
+			} else {
+				if (corouLock)
+					StartCoroutine ("Relocater", "bottom");
+			}
 		} else {
-			StartCoroutine("Relocater", "bottom");
+			if (itemBeingDragged.position.y > paramY * 0.3f) {
+				if (corouLock)
+					StartCoroutine ("Relocater", "top");
+				
+			} else {
+				if (corouLock)
+					StartCoroutine ("Relocater", "bottom");
+			}
 		}
 	}
 
 	#endregion
+
 	private Vector2 vel = Vector2.zero;
 	IEnumerator Relocater(string toWhere){
+		corouLock = false;
 		if (toWhere.Equals ("top")) {
-			while (rt.anchoredPosition.y <= cvHeight * 0.8f) {
+			while (itemBeingDragged.position.y <= paramY * 0.8f) {
 				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
-				                                                new Vector2 (itemBeingDragged.position.x, 1000f),
+				                                                new Vector2 (itemBeingDragged.position.x, paramY),
 				                                                ref vel, 
-				                                                0.2f);
+			    	                                            0.3f);
 				yield return null;
 			}
-			itemBeingDragged.position = new Vector2 (itemBeingDragged.position.x, itemBeingDragged.position.y - 60);
+			while (itemBeingDragged.position.y >= paramY * 0.8f) {
+				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
+				                                                new Vector2 (itemBeingDragged.position.x, paramY * 0.5f),
+				                                                ref vel, 
+				                                                0.3f);
+				yield return null;
+			}
+			isAtTop = true;
 		} else {
-			while (rt.anchoredPosition.y >= startY) {
+			while (itemBeingDragged.position.y >= startY) {
 				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
-				                                                new Vector2 (itemBeingDragged.position.x, 0f),
+				                                                new Vector2 (itemBeingDragged.position.x, startY * 0.8f),
 				                                                ref vel, 
-				                                                0.2f);
+				                                                0.3f);
 				yield return null;
 			}
-			itemBeingDragged.position = new Vector2 (itemBeingDragged.position.x, itemBeingDragged.position.y + 10);
+			while (itemBeingDragged.position.y <= startY) {
+				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
+				                                                new Vector2 (itemBeingDragged.position.x, startY * 1.2f),
+				                                             ref vel, 
+				                                             0.3f);
+				yield return null;
+			}
+			isAtTop = false;
 		}
-
+		corouLock = true;
 		yield break;
 	}
 }

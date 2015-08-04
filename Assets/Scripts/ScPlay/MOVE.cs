@@ -3,9 +3,9 @@ using System.Collections;
 
 public class MOVE : MonoBehaviour {
 
-	public int moveFlag = 3;
+	public int moveFlag = 0;
 
-	private const int speed = 1;
+	private const int speed = 5;
 
 	void Start(){
 	}
@@ -14,83 +14,98 @@ public class MOVE : MonoBehaviour {
 		this.moveFlag = moveFlag;
 		StartCoroutine ("Move");
 	}
+
+	private void IncTurnCount(){
+		int amount = 1;
+		for(int i = 0; i < 3 - ((gameObject.GetComponent<Entity>().getDex())/30);i++){
+			amount*=2;
+		}
+		if(gameObject.GetComponent<Enemy>())gameObject.GetComponent<Enemy>().incTrunCount(amount);
+		if(gameObject.GetComponent<Player>())gameObject.GetComponent<Player>().incTrunCount(amount);
+	}
 	
 	// Update is called oncer frame
 	IEnumerator Move(){
-		float x_point = gameObject.transform.position.x;
-		float y_point = gameObject.transform.position.y;
-		float init_x_point = gameObject.transform.position.x;
-		float init_y_point = gameObject.transform.position.y;
+		Vector3 pos = gameObject.transform.position;
+		Vector3 initPos = gameObject.transform.position;
 		while (true) {
 			switch (moveFlag) {
-			case MoveFlag.STAY:
+			case Direction.STAY:
 				yield break;
-			case MoveFlag.LEFT	:
-				x_point -= Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(init_x_point-x_point>1){	
-					moveFlag = MoveFlag.STAY;
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.LEFT	:
+				pos.x -= Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(initPos.x - pos.x>1){	
+					moveFlag = Direction.STAY;
+					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y+0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.LEFTUP	:
-				x_point -= Time.deltaTime * speed;
-				y_point += Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(init_x_point-x_point>1){
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.LEFTUP	:
+				pos.x -= Time.deltaTime * speed;
+				pos.y += Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(initPos.x - pos.x>1){
+					moveFlag = Direction.STAY;	
+					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y + 1 +0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.UP	:
-				y_point += Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(y_point-init_y_point>1){	
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.UP	:
+				pos.y += Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(pos.y - initPos.y>1){	
+					moveFlag = Direction.STAY;	
+					gameObject.transform.position = new Vector3 ((int)(initPos.x+0.1f), (int)(initPos.y + 1 + 0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.RIGHTUP	:
-				x_point += Time.deltaTime * speed;
-				y_point += Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(x_point-init_x_point>1){
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.RIGHTUP	:
+				pos.x += Time.deltaTime * speed;
+				pos.y += Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(pos.x - initPos.x>1){
+					moveFlag = Direction.STAY;	
+					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y + 1 + 0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.RIGHT	:
-				x_point += Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(x_point-init_x_point>1){	
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.RIGHT	:
+				pos.x += Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(pos.x-initPos.x>1){	
+					moveFlag = Direction.STAY;	
+					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y + 0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.RIGHTDOWN		:
-				x_point += Time.deltaTime * speed;
-				y_point -= Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(x_point-init_x_point>1){
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.RIGHTDOWN		:
+				pos.x += Time.deltaTime * speed;
+				pos.y -= Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(pos.x - initPos.x>1){
+					moveFlag = Direction.STAY;
+					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y - 1 + 0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.DOWN	:
-				y_point -= Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(init_y_point-y_point>1){	
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.DOWN	:
+				pos.y -= Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(initPos.y - pos.y>1){	
+					moveFlag = Direction.STAY;
+					gameObject.transform.position = new Vector3 ((int)(initPos.x+0.1f), (int)(initPos.y - 1 + 0.1f), 0);
+					IncTurnCount();
 				}
 				break;
-			case MoveFlag.LEFTDOWN	:
-				x_point -= Time.deltaTime * speed;
-				y_point -= Time.deltaTime * speed;
-				gameObject.transform.position = new Vector3 (x_point, y_point, 0);
-				if(init_x_point-x_point>1){	
-					moveFlag = MoveFlag.STAY;	
-					gameObject.transform.position = new Vector3 ((int)(x_point+0.1f), (int)(y_point+0.1f), 0);
+			case Direction.LEFTDOWN	:
+				pos.x -= Time.deltaTime * speed;
+				pos.y -= Time.deltaTime * speed;
+				gameObject.transform.position = new Vector3 (pos.x, pos.y, 0);
+				if(initPos.x - pos.x>1){	
+					moveFlag = Direction.STAY;
+					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y - 1 + 0.1f), 0);
+					IncTurnCount();
 				}
 				break;
 			}
@@ -99,7 +114,7 @@ public class MOVE : MonoBehaviour {
 	}
 }
 
-public class MoveFlag{
+public class Direction{
 	public const int STAY = 0;
 	public const int LEFT = 1;
 	public const int LEFTUP = 2;
