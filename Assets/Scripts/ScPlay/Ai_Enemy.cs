@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+<<<<<<< HEAD
+=======
+using System;
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 
 public class Ai_Enemy : MonoBehaviour{
 	
@@ -15,7 +19,11 @@ public class Ai_Enemy : MonoBehaviour{
 	public void setMaster(GameObject m){
 		myMaster = m.GetComponent<Enemy>();
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 	public void InitAI(Vector3 pos, GameObject master) {
 		setPos (pos);
 		setMaster (master);
@@ -285,13 +293,18 @@ public class Ai_Enemy : MonoBehaviour{
 	}
 	
 	private int replace_Flag(Vector3 base_tile, TileInfo target_tile){
+<<<<<<< HEAD
 		int flag = MoveFlag.STAY;
+=======
+		int flag = Direction.STAY;
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 		float p1_x = base_tile.x;
 		float p1_y = base_tile.y;
 		float p2_x = target_tile.locX;
 		float p2_y = target_tile.locY;
 		
 		if ((p1_x - p2_x) == 1 && (p1_y - p2_y) == 0) {
+<<<<<<< HEAD
 			flag = MoveFlag.LEFT;
 		}else if((p1_x - p2_x) == 1 && (p1_y - p2_y) == -1){
 			flag = MoveFlag.LEFTUP;
@@ -309,6 +322,25 @@ public class Ai_Enemy : MonoBehaviour{
 			flag = MoveFlag.LEFTDOWN;
 		}else{
 			flag = MoveFlag.STAY;
+=======
+			flag = Direction.LEFT;
+		}else if((p1_x - p2_x) == 1 && (p1_y - p2_y) == -1){
+			flag = Direction.LEFTUP;
+		}else if((p1_x - p2_x) == 0 && (p1_y - p2_y) == -1){
+			flag = Direction.UP;
+		}else if((p1_x - p2_x) == -1 && (p1_y - p2_y) == -1){
+			flag = Direction.RIGHTUP;
+		}else if((p1_x - p2_x) == -1 && (p1_y - p2_y) == 0){
+			flag = Direction.RIGHT;
+		}else if((p1_x - p2_x) == -1 && (p1_y - p2_y) == 1){
+			flag = Direction.RIGHTDOWN;
+		}else if((p1_x - p2_x) == 0 && (p1_y - p2_y) == 1){
+			flag = Direction.DOWN;
+		}else if((p1_x - p2_x) == 1 && (p1_y - p2_y) == 1){
+			flag = Direction.LEFTDOWN;
+		}else{
+			flag = Direction.STAY;
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 		}	
 		return flag;
 	}

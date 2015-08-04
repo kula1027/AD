@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using UnityEngine;
+=======
+using UnityEngine;
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 using System.Collections;
 
 public class EnemyManager : MonoBehaviour {
@@ -16,6 +20,10 @@ public class EnemyManager : MonoBehaviour {
 			int num = Random.Range(0, enemy.Length-1);
 			Transform e = (Transform)Instantiate(enemy[num], ((GameObject)(boardManager.enemyTiles[i])).transform.position, Quaternion.identity);
 			e.GetComponent<Enemy>().SetEnemyManager(gameObject);
+<<<<<<< HEAD
+=======
+			e.GetComponent<Entity>().init (IdInfo.DEBUG,IdInfo.DEBUG);
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 			enemys.Add(e.gameObject);
 		}
 	}
@@ -28,7 +36,11 @@ public class EnemyManager : MonoBehaviour {
 
 	public bool IsAllStop(){
 		for(int i = 0 ; i < enemys.Count ; i ++){
+<<<<<<< HEAD
 			if(((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag!=MoveFlag.STAY){
+=======
+			if(((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag!=Direction.STAY){
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 				return false;
 			}
 		}
@@ -37,10 +49,17 @@ public class EnemyManager : MonoBehaviour {
 
 	public void EnemyAct(){
 		for(int i = 0 ; i < enemys.Count ; i ++){
+<<<<<<< HEAD
 			if(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount()==0 && ((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag == MoveFlag.STAY){
 				((GameObject)(enemys[i])).GetComponent<Enemy>().Act();
 			}else{
 				Debug.Log(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount());
+=======
+			if(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount()==0 && ((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag == Direction.STAY){
+				((GameObject)(enemys[i])).GetComponent<Enemy>().Act();
+			}else{
+				//Debug.Log(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount());
+>>>>>>> 6391116034947803d6550d28e9f180d5aed80587
 			}
 		}
 	}
