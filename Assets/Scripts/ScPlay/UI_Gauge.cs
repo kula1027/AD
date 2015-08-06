@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class UI_Gauge : MonoBehaviour {
-	private const int MAXGAUGE = 140; 
+	private const float MAXGAUGE = 418.6f; 
 	private RectTransform hp;
 	private RectTransform mp;
 	private RectTransform exp;
@@ -13,19 +13,19 @@ public class UI_Gauge : MonoBehaviour {
 		exp = transform.FindChild ("Gauge_EXP").transform.FindChild("Gauge").GetComponent<RectTransform>();
 	}
 
-	void SetHP(int percent){
+	public void SetHP(int percent){
 		float hpPercent = MAXGAUGE * percent * 0.01f;
 
 		hp.sizeDelta = new Vector2 (hpPercent, 0);
 	}
 
-	void SetMP(int percent){
+	public void SetMP(int percent){
 		float mpPercent = MAXGAUGE * percent * 0.01f;
 		
 		mp.sizeDelta = new Vector2 (mpPercent, 0);
 	}
 
-	void SetEXP(int percent){
+	public void SetEXP(int percent){
 		float expPercent = MAXGAUGE * percent * 0.01f;
 		
 		exp.sizeDelta = new Vector2 (expPercent, 0);

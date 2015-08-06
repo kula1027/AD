@@ -57,14 +57,14 @@ public class UI_DragnDrop : MonoBehaviour, IDragHandler, IEndDragHandler {
 	IEnumerator Relocater(string toWhere){
 		corouLock = false;
 		if (toWhere.Equals ("top")) {
-			while (itemBeingDragged.position.y <= paramY * 0.8f) {
+			while (itemBeingDragged.position.y <= paramY * 0.6f) {
 				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
 				                                                new Vector2 (itemBeingDragged.position.x, paramY),
 				                                                ref vel, 
 			    	                                            0.3f);
 				yield return null;
 			}
-			while (itemBeingDragged.position.y >= paramY * 0.8f) {
+			while (itemBeingDragged.position.y >= paramY * 0.6f) {
 				itemBeingDragged.position = Vector2.SmoothDamp (itemBeingDragged.position, 
 				                                                new Vector2 (itemBeingDragged.position.x, paramY * 0.5f),
 				                                                ref vel, 

@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class UI_Buff : MonoBehaviour {
-	private GameObject[] buff = new GameObject[12];
+	private GameObject[] buff = new GameObject[17];
 	private int buffCount;
 
 	void Start () {
-		for (int loop = 0; loop < 12; loop++) {
+		for (int loop = 0; loop < 17; loop++) {
 			buff[loop] = GameObject.Find("Buff (" + loop + ")");
 			buff[loop].SetActive(false);
 		}
