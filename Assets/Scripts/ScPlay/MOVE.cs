@@ -12,16 +12,8 @@ public class MOVE : MonoBehaviour {
 
 	public void SetMove(int moveFlag){
 		this.moveFlag = moveFlag;
+		gameObject.GetComponent<Entity>().incTrunCount();
 		StartCoroutine ("Move");
-	}
-
-	private void IncTurnCount(){
-		int amount = 1;
-		for(int i = 0; i < 3 - ((gameObject.GetComponent<Entity>().getDex())/30);i++){
-			amount*=2;
-		}
-		if(gameObject.GetComponent<Enemy>())gameObject.GetComponent<Enemy>().incTrunCount(amount);
-		if(gameObject.GetComponent<Player>())gameObject.GetComponent<Player>().incTrunCount(amount);
 	}
 	
 	// Update is called oncer frame
@@ -38,7 +30,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.x - pos.x>1){	
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y+0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.LEFTUP	:
@@ -48,7 +39,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.x - pos.x>1){
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y + 1 +0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.UP	:
@@ -57,7 +47,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.y - initPos.y>1){	
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x+0.1f), (int)(initPos.y + 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.RIGHTUP	:
@@ -67,7 +56,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.x - initPos.x>1){
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y + 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.RIGHT	:
@@ -76,7 +64,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.x-initPos.x>1){	
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.RIGHTDOWN		:
@@ -86,7 +73,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.x - initPos.x>1){
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y - 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.DOWN	:
@@ -95,7 +81,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.y - pos.y>1){	
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x+0.1f), (int)(initPos.y - 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.LEFTDOWN	:
@@ -105,7 +90,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.x - pos.x>1){	
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y - 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			}

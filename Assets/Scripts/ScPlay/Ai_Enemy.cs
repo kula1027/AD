@@ -32,8 +32,8 @@ public class Ai_Enemy : MonoBehaviour{
 	private void into_Loc(){
 		for (int x = 0; x < 52; x++) {
 			for (int y = 0; y < 52; y++) {
-				tile[y,x].locX = x;
-				tile[y,x].locY = y;
+				tile[y,x].position.x = x;
+				tile[y,x].position.y = y;
 			}
 		}
 	}
@@ -135,16 +135,16 @@ public class Ai_Enemy : MonoBehaviour{
 		
 		// enemy 자기자신과 player가 위치한 tail의 index를 구함
 		for(i = 0; i<node_Arr_Wall.Length ; i++){
-			if((pos.x == node_Arr_Wall[i].locX) && (pos.y == node_Arr_Wall[i].locY)){
+			if((pos.x == node_Arr_Wall[i].position.x) && (pos.y == node_Arr_Wall[i].position.y)){
 				start_W = i;
-			}else if((player_pos.x == node_Arr_Wall[i].locX) && (player_pos.y == node_Arr_Wall[i].locY)){
+			}else if((player_pos.x == node_Arr_Wall[i].position.x) && (player_pos.y == node_Arr_Wall[i].position.y)){
 				target_W = i;
 			}		
 		}
 		for(i = 0; i<node_Arr_Unit.Length ; i++){
-			if((pos.x == node_Arr_Unit[i].locX) && pos.y == node_Arr_Unit[i].locY){
+			if((pos.x == node_Arr_Unit[i].position.x) && pos.y == node_Arr_Unit[i].position.y){
 				start_U = i;
-			}else if((player_pos.x == node_Arr_Unit[i].locX) && (player_pos.y == node_Arr_Unit[i].locY)){
+			}else if((player_pos.x == node_Arr_Unit[i].position.x) && (player_pos.y == node_Arr_Unit[i].position.y)){
 				target_U = i;
 			}		
 		}
@@ -267,10 +267,10 @@ public class Ai_Enemy : MonoBehaviour{
 	private double replace_EdgeDist(TileInfo base_tile, TileInfo target_tile){
 		float dist = 0;
 		double edge_dist = 0;
-		float p1_x = base_tile.locX;
-		float p1_y = base_tile.locY;
-		float p2_x = target_tile.locX;
-		float p2_y = target_tile.locY;
+		float p1_x = base_tile.position.x;
+		float p1_y = base_tile.position.y;
+		float p2_x = target_tile.position.x;
+		float p2_y = target_tile.position.y;
 		
 		dist = Mathf.Sqrt((p1_x-p2_x)*(p1_x-p2_x)+(p1_y-p2_y)*(p1_y-p2_y));
 		if (dist == 0) {
@@ -289,8 +289,8 @@ public class Ai_Enemy : MonoBehaviour{
 		int flag = Direction.STAY;
 		float p1_x = base_tile.x;
 		float p1_y = base_tile.y;
-		float p2_x = target_tile.locX;
-		float p2_y = target_tile.locY;
+		float p2_x = target_tile.position.x;
+		float p2_y = target_tile.position.y;
 		
 		if ((p1_x - p2_x) == 1 && (p1_y - p2_y) == 0) {
 			flag = Direction.LEFT;

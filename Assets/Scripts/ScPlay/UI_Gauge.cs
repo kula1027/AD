@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class UI_Gauge : MonoBehaviour {
-	private const float MAXGAUGE = 418.6f; 
-	private RectTransform hp;
-	private RectTransform mp;
-	private RectTransform exp;
+	//private const float MAXGAUGE = 418.6f; 
+	private static RectTransform hp;
+	private static RectTransform mp;
+	private static RectTransform exp;
 
 	void Start () {
 		hp = transform.FindChild ("Gauge_HP").transform.FindChild("Gauge").GetComponent<RectTransform>();
@@ -13,21 +13,14 @@ public class UI_Gauge : MonoBehaviour {
 		exp = transform.FindChild ("Gauge_EXP").transform.FindChild("Gauge").GetComponent<RectTransform>();
 	}
 
-	public void SetHP(int percent){
-		float hpPercent = MAXGAUGE * percent * 0.01f;
-
-		hp.sizeDelta = new Vector2 (hpPercent, 0);
+	public static void SetPlayerHP(float rate){
+		hp.localScale = new Vector3 (rate,1,1);
 	}
 
-	public void SetMP(int percent){
-		float mpPercent = MAXGAUGE * percent * 0.01f;
-		
-		mp.sizeDelta = new Vector2 (mpPercent, 0);
+	public static void SetPlayerMP(float rate){
+		hp.localScale = new Vector3 (rate, 1, 1);
 	}
-
-	public void SetEXP(int percent){
-		float expPercent = MAXGAUGE * percent * 0.01f;
-		
-		exp.sizeDelta = new Vector2 (expPercent, 0);
+	public static void SetPlayerEXP(float rate){
+		hp.localScale = new Vector3 (rate, 1, 1);
 	}
 }

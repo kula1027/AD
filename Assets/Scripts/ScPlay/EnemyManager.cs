@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour {
 			int num = Random.Range(0, enemy.Length-1);
 			Transform e = (Transform)Instantiate(enemy[num], ((GameObject)(boardManager.enemyTiles[i])).transform.position, Quaternion.identity);
 			e.GetComponent<Enemy>().SetEnemyManager(gameObject);
-			e.GetComponent<Entity>().init (IdInfo.DEBUG,IdInfo.DEBUG);
+			e.GetComponent<Entity>().init (IdInfo.CoboltDogul,IdInfo.CoboltDogul);
 			enemys.Add(e.gameObject);
 		}
 	}
@@ -27,9 +27,22 @@ public class EnemyManager : MonoBehaviour {
 		}
 	}
 
-	public bool IsAllStop(){
+	public bool isAllNonZeroTurn(){
+		for(int i = 0 ; i < enemys.Count ; i ++){
+			if(((GameObject)(enemys[i])).GetComponent<Entity>().getTurnCount()<=0){
+				Debug.Log(((GameObject)(enemys[i])).GetComponent<Entity>().getTurnCount());
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public bool IsAllStay(){
 		for(int i = 0 ; i < enemys.Count ; i ++){
 			if(((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag!=Direction.STAY){
+				return false;
+			}
+			if(((GameObject)(enemys[i])).GetComponent<ATTACK>().attackFlag!=Direction.STAY){
 				return false;
 			}
 		}
@@ -37,11 +50,12 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public void EnemyAct(){
+		//Debug.Log("EnemyAct() is called");
 		for(int i = 0 ; i < enemys.Count ; i ++){
-			if(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount()==0 && ((GameObject)(enemys[i])).GetComponent<MOVE>().moveFlag == Direction.STAY){
+			if(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount()==0){
 				((GameObject)(enemys[i])).GetComponent<Enemy>().Act();
 			}else{
-				//Debug.Log(((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount());
+				//Debug.Log(i+" , "+((GameObject)(enemys[i])).GetComponent<Enemy>().getTurnCount());
 			}
 		}
 	}

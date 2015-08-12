@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
-	public Stage[] _Stage;
+	
 	public int roomMin = 4;
 	public int roomMax = 7;
 	public int columns = 52;
@@ -23,8 +23,11 @@ public class BoardManager : MonoBehaviour
 	private GameObject boardHolder;
 	private GameObject wallGroup;
 	private List<Vector3> gridPositions = new List<Vector3> ();
-	
-	public void clearStage (){
+
+    public List<Stage> _Stage = new List<Stage>();
+
+
+    public void clearStage (){
 		for (int x = 0; x < columns; x++) {
 			for (int y = 0; y < rows; y++) {
 				if (tile [y, x].tileType == 0) {
@@ -45,11 +48,13 @@ public class BoardManager : MonoBehaviour
 	}
 	
 	void BoardSetup (){
-		_Stage = new Stage[2];
-		for (int i = 0; i < _Stage.Length; i++) {
-			_Stage [i] = new Stage (rows, columns, roomMin, roomMax, floorTiles.Length, wallTiles.Length, outerWallTiles.Length, foodTiles.Length, enemyTiles.Length);
-		}
-		wallGroup = GameObject.Find ("Wall");
+
+        _Stage.Add(new Stage(rows, columns, roomMin, roomMax));
+        _Stage.Add(new Stage(rows, columns, roomMin, roomMax));
+        _Stage.Add(new Stage(rows, columns, roomMin, roomMax));
+        _Stage.Add(new Stage(rows, columns, roomMin, roomMax));
+
+        wallGroup = GameObject.Find ("Wall");
 		boardHolder = GameObject.Find ("Board");
 	}
 	
@@ -65,27 +70,41 @@ public class BoardManager : MonoBehaviour
 		
 		for (int x = 0; x < columns; x++) {
 			for (int y = 0; y < rows; y++) {
-				if (tile [y, x].hasWall == false) {
-					tile [y, x].tileType = 0;
-				}
-				//toInstantiate = floorTiles[tile[y, x].floorType];
-				//setTile(toInstantiate, x, y);
-				if (tile [y, x].tileType == 0) {
-					toInstantiate = floorTiles [tile [y, x].floorType];
-					tileObj [y, x] = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
-					tileObj [y, x].transform.SetParent (boardHolder.transform);
-				} else if (tile [y, x].tileType == 1) {
-					toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
-					wallObj [y, x] = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
-					wallObj [y, x].transform.SetParent (wallGroup.transform);
-				} else if (tile [y, x].tileType == 2) {
-					toInstantiate = wallTiles [Random.Range (0, wallTiles.Length)];
-					wallObj [y, x] = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
-					wallObj [y, x].transform.SetParent (wallGroup.transform);
-				} else {
-					;//
-				}
-			}
+                if (tile[y, x].tileType == TileInfo.FLOOR)
+                {
+                    toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                    tileObj[y, x] = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    tileObj[y, x].transform.SetParent(boardHolder.transform);
+                }
+                else if (tile[y, x].tileType == TileInfo.OUTERWALL)
+                {
+                    toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+                    wallObj[y, x] = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    wallObj[y, x].transform.SetParent(wallGroup.transform);
+                }
+                else if (tile[y, x].tileType == TileInfo.WALL)
+                {
+                    toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
+                    wallObj[y, x] = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    wallObj[y, x].transform.SetParent(wallGroup.transform);
+                }
+                else if (tile[y, x].tileType == TileInfo.ROOM)
+                {
+                    toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                    tileObj[y, x] = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    tileObj[y, x].transform.SetParent(boardHolder.transform);
+                }
+                else if (tile[y, x].tileType == TileInfo.ROAD)
+                {
+                    toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                    tileObj[y, x] = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    tileObj[y, x].transform.SetParent(boardHolder.transform);
+                }
+                else
+                {
+                    ;//
+                }
+            }
 		}
 		Instantiate (exit, _Stage [stage].Exit, Quaternion.identity);
 	}

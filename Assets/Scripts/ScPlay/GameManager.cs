@@ -6,10 +6,14 @@ public class GameManager : MonoBehaviour
 	
 	public BoardManager boardManager;
 	public EnemyManager enemyManager;
-	public int turn = Turn.Select;
+
+	public int turn = Turn.Select;			//turn은 유저의 입력을 받느냐 마느냐를 결정한다.
+											//Select이면 입력을받고 Acting이면 입력을 받지않는다.
+											//turnCount가 0이 되면 Select로 바뀐다.
 	public int currStage = 0;
 	public Transform prefabPlayer;
 	public GameObject player;
+	public Player playerScript;
 	public CameraControl cam;
 	private int level = 3;
 
@@ -27,130 +31,127 @@ public class GameManager : MonoBehaviour
 		boardManager.SetupScene (level);
 		player = (((Transform)Instantiate (prefabPlayer, transform.position, Quaternion.identity))).gameObject;
 		player.transform.position = boardManager._Stage [0].PlayerSpawnPoint;
-		player.GetComponent<Entity> ().init (IdInfo.DEBUG, IdInfo.DEBUG);
+		player.GetComponent<Entity> ().init (IdInfo.SullSsa,IdInfo.SullSsa);
 		cam.SetPlayer (player);
 		//GameObject.Find ("Player").transform.position = new Vector3(10,10,0);
 		enemyManager.CreateEnemy ();
+		playerScript = player.GetComponent<Player>();
 	}
 
+
+	//turn이 Select일 경우 공격 명령을 Accept한다. turn을 즉시 Acting으로 바꾸어준다.
 	public void PlayerAttack(int attackFlag){
-		if (turn == Turn.Select && player.GetComponent<Entity>().getTurnCount()==0) {
-			Player localPlayer = player.GetComponent<Player> ();
+		if (turn == Turn.Select) {
 			switch(attackFlag){
 			case Direction.UP:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.DOWN:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.LEFT:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
-					enemyManager.EnemyAct ();
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.RIGHT:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.LEFTDOWN:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
-					enemyManager.EnemyAct ();
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.LEFTUP:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.RIGHTUP:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			case Direction.RIGHTDOWN:
 				if (true){//조건문 TODO
-					localPlayer.SetAttack (attackFlag);
 					turn = Turn.Acting;
+					playerScript.SetAttack (attackFlag);
 				}
 				break;
 			}
 		}
 	}
-
+	//turn이 Select일 경우 이동 명령을 Accept한다. turn을 즉시 Acting으로 바꾸어준다.
 	public void PlayerMove(int moveFlag){
-		if (turn == Turn.Select && player.GetComponent<Entity>().getTurnCount()==0) {
-			Player localPlayer = player.GetComponent<Player> ();
+		if (turn == Turn.Select && playerScript.getTurnCount()==0) {
 			switch(moveFlag){
 			case Direction.UP:
 				//Debug.Log (localPlayer.up);
-				if (localPlayer.up == KindTag.empty || localPlayer.up == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.up == KindTag.empty || playerScript.up == KindTag.item){
 					turn = Turn.Acting;
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.DOWN:
 				//Debug.Log (localPlayer.down);
-				if (localPlayer.down == KindTag.empty || localPlayer.down == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.down == KindTag.empty || playerScript.down == KindTag.item){
 					turn = Turn.Acting;
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.LEFT:
 				//Debug.Log (localPlayer.left);
-				if (localPlayer.left == KindTag.empty || localPlayer.left == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.left == KindTag.empty || playerScript.left == KindTag.item){
 					turn = Turn.Acting;
-					enemyManager.EnemyAct ();
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.RIGHT:
 				//Debug.Log (localPlayer.right);
-				if (localPlayer.right == KindTag.empty || localPlayer.right == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.right == KindTag.empty || playerScript.right == KindTag.item){
 					turn = Turn.Acting;
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.LEFTDOWN:
 				//Debug.Log (localPlayer.leftDown);
-				if (localPlayer.leftDown == KindTag.empty || localPlayer.leftDown == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.leftDown == KindTag.empty || playerScript.leftDown == KindTag.item){
 					turn = Turn.Acting;
-					enemyManager.EnemyAct ();
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.LEFTUP:
 				//Debug.Log (localPlayer.leftUp);
-				if (localPlayer.leftUp == KindTag.empty || localPlayer.leftUp == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.leftUp == KindTag.empty || playerScript.leftUp == KindTag.item){
 					turn = Turn.Acting;
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.RIGHTUP:
 				//Debug.Log (localPlayer.rightUp);
-				if (localPlayer.rightUp == KindTag.empty || localPlayer.rightUp == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.rightUp == KindTag.empty || playerScript.rightUp == KindTag.item){
 					turn = Turn.Acting;
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			case Direction.RIGHTDOWN:
 				//Debug.Log (localPlayer.rightDown);
-				if (localPlayer.rightDown == KindTag.empty || localPlayer.rightDown == KindTag.item){
-					localPlayer.SetMove (moveFlag);
+				if (playerScript.rightDown == KindTag.empty || playerScript.rightDown == KindTag.item){
 					turn = Turn.Acting;
+					playerScript.SetMove (moveFlag);
 				}
 				break;
 			}
@@ -159,67 +160,18 @@ public class GameManager : MonoBehaviour
 
 	void Update ()
 	{
-		if (player.GetComponent<Entity> ().getTurnCount() != 0 && enemyManager.IsAllStop()) {
-			player.GetComponent<Entity> ().decTurnCount();
+		//모든 Entity의 행동이 끝났는데 모두의 tunrCount가 양수일 경우,
+		//모든 Entity의 turnCount를 1씩 감소시킨다.
+		if (playerScript.isStay() && playerScript.getTurnCount() > 0 && enemyManager.IsAllStay() && enemyManager.isAllNonZeroTurn()) {
+			playerScript.decTurnCount();
 			enemyManager.decTurnCount();
 		}
-		if (turn == Turn.Select) {
-			Player localPlayer = player.GetComponent<Player> ();
-			if (localPlayer.leftUp == KindTag.empty || localPlayer.leftUp == KindTag.item)
-			if (Input.GetKeyUp ("q")) {
-				localPlayer.SetMove (Direction.LEFTUP);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.up == KindTag.empty || localPlayer.up == KindTag.item)
-			if (Input.GetKeyUp ("w")) {
-				localPlayer.SetMove (Direction.UP);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.rightUp == KindTag.empty || localPlayer.rightUp == KindTag.item)
-			if (Input.GetKeyUp ("e")) {
-				localPlayer.SetMove (Direction.RIGHTUP);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.right == KindTag.empty || localPlayer.right == KindTag.item)
-			if (Input.GetKeyUp ("d")) {
-				localPlayer.SetMove (Direction.RIGHT);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.rightDown == KindTag.empty || localPlayer.rightDown == KindTag.item)
-			if (Input.GetKeyUp ("c")) {
-				localPlayer.SetMove (Direction.RIGHTDOWN);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.down == KindTag.empty || localPlayer.down == KindTag.item)
-			if (Input.GetKeyUp ("x")) {
-				localPlayer.SetMove (Direction.DOWN);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.leftDown == KindTag.empty || localPlayer.leftDown == KindTag.item)
-			if (Input.GetKeyUp ("z")) {
-				localPlayer.SetMove (Direction.LEFTDOWN);
-				turn = Turn.Acting;
-			}
-			
-			if (localPlayer.left == KindTag.empty || localPlayer.left == KindTag.item)
-			if (Input.GetKeyUp ("a")) {
-				localPlayer.SetMove (Direction.LEFT);
-				turn = Turn.Acting;
-			}
-			
-			if (Input.GetKeyUp ("s")) {
-				localPlayer.SetMove (Direction.STAY);
-				turn = Turn.Acting;
-			}
-		} else if (turn == Turn.Acting) {
+		//유저의 입력을 받지않는동안 Enemy를 계속 움직인다.
+		if (turn == Turn.Acting) {
 			enemyManager.EnemyAct ();
-			if (player.GetComponent<MOVE>().moveFlag==Direction.STAY && enemyManager.IsAllStop()) {
+			//모든 Entity의 행동이 끝나고 플레이어의 turnCount가 0일경우,
+			//유저의 입력을 받는 상태가 된다.
+			if (playerScript.isStay() && playerScript.getTurnCount() == 0 && enemyManager.IsAllStay()) {
 				turn = Turn.Select;
 			}
 		}

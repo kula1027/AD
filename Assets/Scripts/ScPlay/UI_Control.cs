@@ -10,9 +10,12 @@ public class UI_Control : MonoBehaviour {
 
 	private GameObject panel_menu;
 
+	private bool itemDragLock;
+
 	void Start(){
 		SlotButtonInit ();
 		InGameMenuInit ();
+		itemDragLock = true;
 	}
 
 
@@ -48,80 +51,80 @@ public class UI_Control : MonoBehaviour {
 	#region Input Buttons
 	public void onButtonWClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFT)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.LEFT);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.LEFT);
 		}
 	}
 
 	public void onButtonEClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.RIGHT)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.RIGHT);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.RIGHT);
 		}
 	}
 
 	public void onButtonNClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.UP)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.UP);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.UP);
 		}
 	}
 
 	public void onButtonSClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.DOWN)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.DOWN);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.DOWN);
 		}
 	}
 
 	public void onButtonSEClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.RIGHTDOWN)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.RIGHTDOWN);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.RIGHTDOWN);
 		}
 	}
 
 	public void onButtonSWClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFTDOWN)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.LEFTDOWN);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.LEFTDOWN);
 		}
 	}
 
 	public void onButtonNWClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.LEFTUP)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.LEFTUP);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.LEFTUP);
 		}
 	}
 
 	public void onButtonNEClicked(){
 		if (gameManager.player.GetComponent<ATTACK> ().attackable (Direction.RIGHTUP)) {
-			Debug.Log ("attack!");
+			//Debug.Log ("attack!");
 			gameManager.PlayerAttack (Direction.RIGHTUP);
 		} else {
-			Debug.Log ("move!");
+			//Debug.Log ("move!");
 			gameManager.PlayerMove (Direction.RIGHTUP);
 		}
 	}
@@ -141,32 +144,41 @@ public class UI_Control : MonoBehaviour {
 		slot_status.SetActive (false); 
 	}
 
-	public void onDrinkButtonClicked(){
+	public void onDrinkButtonDown(){;
 		slot_drink.SetActive (true);
 		slot_item.SetActive (false);
 		slot_skill.SetActive (false);
 		slot_status.SetActive (false);
 	}
 
-	public void onItemButtonClicked(){
+	public void onItemButtonDown(){
 		slot_drink.SetActive (false);
 		slot_item.SetActive (true);
 		slot_skill.SetActive (false);
 		slot_status.SetActive (false);
 	}
 
-	public void onSkillButtonClicked(){
+	public void onSkillButtonDown(){
 		slot_drink.SetActive (false);
 		slot_item.SetActive (false);
 		slot_skill.SetActive (true);
 		slot_status.SetActive (false);
 	}
 
-	public void onStatusButtonClicked(){
+	public void onStatusButtonDown(){
 		slot_drink.SetActive (false);
 		slot_item.SetActive (false);
 		slot_skill.SetActive (false);
 		slot_status.SetActive (true);
 	}
 	#endregion
+
+	public bool ItemDragLock {
+		get {
+			return itemDragLock;
+		}
+		set {
+			itemDragLock = value;
+		}
+	}
 }
