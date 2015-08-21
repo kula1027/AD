@@ -60,12 +60,6 @@
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -111,6 +105,7 @@
     <Compile Include="Assets\Scripts\ScPlay\TileInfo.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_BottomButton.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Buff.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_Button.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Control.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_DragnDrop.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Gauge.cs" />
@@ -122,6 +117,7 @@
     <Compile Include="Assets\Scripts\ScPlay\UI_SlotItem.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_ValueDisplay.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Weapon.cs" />
+    <Compile Include="Assets\text.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hand painted bottle\readme.txt" />

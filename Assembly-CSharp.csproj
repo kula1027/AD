@@ -86,6 +86,7 @@
      <Compile Include="Assets\Scripts\ScPlay\TileInfo.cs" />
      <Compile Include="Assets\Scripts\ScPlay\UI_BottomButton.cs" />
      <Compile Include="Assets\Scripts\ScPlay\UI_Buff.cs" />
+     <Compile Include="Assets\Scripts\ScPlay\UI_Button.cs" />
      <Compile Include="Assets\Scripts\ScPlay\UI_Control.cs" />
      <Compile Include="Assets\Scripts\ScPlay\UI_DragnDrop.cs" />
      <Compile Include="Assets\Scripts\ScPlay\UI_Gauge.cs" />
@@ -97,6 +98,7 @@
      <Compile Include="Assets\Scripts\ScPlay\UI_SlotItem.cs" />
      <Compile Include="Assets\Scripts\ScPlay\UI_ValueDisplay.cs" />
      <Compile Include="Assets\Scripts\ScPlay\Weapon.cs" />
+     <Compile Include="Assets\text.cs" />
      <None Include="Assets\Party Pack\Sounds\Sounds License.txt" />
      <None Include="Assets\Hand painted bottle\readme.txt" />
  <Reference Include="UnityEngine.UI">
