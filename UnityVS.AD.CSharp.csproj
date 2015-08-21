@@ -60,6 +60,12 @@
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -74,25 +80,48 @@
     <Compile Include="Assets\Scripts\ScCharicSelect\UI_SelectMenu.cs" />
     <Compile Include="Assets\Scripts\ScMenu\UI_StartMenu.cs" />
     <Compile Include="Assets\Scripts\ScPlay\ATTACK.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Accessory.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Ai_Enemy.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\AlcoholBag.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\AlcoholBottle.cs" />
     <Compile Include="Assets\Scripts\ScPlay\BoardManager.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Buff.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Buffmanager.cs" />
     <Compile Include="Assets\Scripts\ScPlay\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\CodeManager.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Config.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Drink.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Enemy.cs" />
     <Compile Include="Assets\Scripts\ScPlay\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Entity.cs" />
     <Compile Include="Assets\Scripts\ScPlay\EntityCollider.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Equipment.cs" />
     <Compile Include="Assets\Scripts\ScPlay\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Gold.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Item.cs" />
     <Compile Include="Assets\Scripts\ScPlay\MOVE.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\ObjectID.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Player.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\RandomManager.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Room.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Skill.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\SkillManager.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Snack.cs" />
     <Compile Include="Assets\Scripts\ScPlay\Stage.cs" />
     <Compile Include="Assets\Scripts\ScPlay\TileInfo.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_BottomButton.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Buff.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Control.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_DragnDrop.cs" />
     <Compile Include="Assets\Scripts\ScPlay\UI_Gauge.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_Log.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_SkillSlot.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_Slot.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_SlotHoldingDrink.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_SlotHoldingItem.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_SlotItem.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\UI_ValueDisplay.cs" />
+    <Compile Include="Assets\Scripts\ScPlay\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hand painted bottle\readme.txt" />

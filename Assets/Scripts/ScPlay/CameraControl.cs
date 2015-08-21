@@ -12,7 +12,7 @@ public class CameraControl : MonoBehaviour {
 	Vector3 vel = Vector3.zero;
 	void Update () {
 		if(CMtran){
-			Vector3 targetPos = CMtran.transform.position - new Vector3(0, 0, 10);
+			Vector3 targetPos = CMtran.transform.position - new Vector3(0, 1, 10);
 			transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref vel, 0.1f);
 		}
 	}

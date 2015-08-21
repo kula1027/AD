@@ -16,16 +16,16 @@ public class EntityCollider : MonoBehaviour {
 		if(coll.tag == "Enemy"){
 			stack++;
 			if(master.GetComponent<Player>()){
-				master.GetComponent<Player>().EnterDetection(dirc, KindTag.enemy);
+				master.GetComponent<Player>().EnterDetection(dirc, KindTag.player);
 			}else{
-				master.GetComponent<Enemy>().EnterDetection(dirc, KindTag.enemy);
+				master.GetComponent<Enemy>().EnterDetection(dirc, KindTag.entity);
 			}
 		}else if(coll.tag == "Player"){
 			stack++;
 			if(master.GetComponent<Player>()){
 				master.GetComponent<Player>().EnterDetection(dirc, KindTag.player);
 			}else{
-				master.GetComponent<Enemy>().EnterDetection(dirc, KindTag.player);
+				master.GetComponent<Enemy>().EnterDetection(dirc, KindTag.entity);
 			}
 		}else if(coll.tag == "Wall"){
 			stack++;

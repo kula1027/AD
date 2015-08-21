@@ -4,6 +4,7 @@ using System.Collections;
 public class MOVE : MonoBehaviour {
 
 	public int moveFlag = 0;
+	private int sortingOrder = 0;
 
 	private const int speed = 5;
 
@@ -12,16 +13,8 @@ public class MOVE : MonoBehaviour {
 
 	public void SetMove(int moveFlag){
 		this.moveFlag = moveFlag;
+		gameObject.GetComponent<Entity>().incTurnCount();
 		StartCoroutine ("Move");
-	}
-
-	private void IncTurnCount(){
-		int amount = 1;
-		for(int i = 0; i < 3 - ((gameObject.GetComponent<Entity>().getDex())/30);i++){
-			amount*=2;
-		}
-		if(gameObject.GetComponent<Enemy>())gameObject.GetComponent<Enemy>().incTrunCount(amount);
-		if(gameObject.GetComponent<Player>())gameObject.GetComponent<Player>().incTrunCount(amount);
 	}
 	
 	// Update is called oncer frame
@@ -31,6 +24,14 @@ public class MOVE : MonoBehaviour {
 		while (true) {
 			switch (moveFlag) {
 			case Direction.STAY:
+				if(gameObject.GetComponent<Player>()){
+					if(gameObject.GetComponent<Player>().getEntityCode() == 4){
+						GameObject.Find("GameManager").GetComponent<GameManager>().take9Drink();	//투척병은 주변 3x3 습득
+					}else{
+						GameObject.Find("GameManager").GetComponent<GameManager>().takeDrink();		//그외는 자기 자리만 습득
+					}
+					GameObject.Find("GameManager").GetComponent<GameManager>().takeItem();
+				}
 				yield break;
 			case Direction.LEFT	:
 				pos.x -= Time.deltaTime * speed;
@@ -38,7 +39,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.x - pos.x>1){	
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y+0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.LEFTUP	:
@@ -48,7 +48,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.x - pos.x>1){
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y + 1 +0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.UP	:
@@ -57,7 +56,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.y - initPos.y>1){	
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x+0.1f), (int)(initPos.y + 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.RIGHTUP	:
@@ -67,7 +65,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.x - initPos.x>1){
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y + 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.RIGHT	:
@@ -76,7 +73,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.x-initPos.x>1){	
 					moveFlag = Direction.STAY;	
 					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.RIGHTDOWN		:
@@ -86,7 +82,6 @@ public class MOVE : MonoBehaviour {
 				if(pos.x - initPos.x>1){
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x + 1 + 0.1f), (int)(initPos.y - 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.DOWN	:
@@ -95,7 +90,6 @@ public class MOVE : MonoBehaviour {
 				if(initPos.y - pos.y>1){	
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x+0.1f), (int)(initPos.y - 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
 			case Direction.LEFTDOWN	:
@@ -105,9 +99,13 @@ public class MOVE : MonoBehaviour {
 				if(initPos.x - pos.x>1){	
 					moveFlag = Direction.STAY;
 					gameObject.transform.position = new Vector3 ((int)(initPos.x - 1 + 0.1f), (int)(initPos.y - 1 + 0.1f), 0);
-					IncTurnCount();
 				}
 				break;
+			}
+			if(transform.position.y > (float)(((int)(transform.position.y))+0.5f)){
+				transform.FindChild ("Image").GetComponent<SpriteRenderer> ().sortingOrder = (int)(51 - transform.position.y);
+			}else{
+				transform.FindChild ("Image").GetComponent<SpriteRenderer> ().sortingOrder = (int)(52 - transform.position.y);
 			}
 			yield return null;
 		}
